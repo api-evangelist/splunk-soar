@@ -1,0 +1,50 @@
+aid: splunk-soar
+name: Splunk SOAR
+description: Splunk SOAR, built on the Phantom platform Splunk acquired in 2018 and now part of Cisco through the
+  2024 Splunk acquisition, is a security orchestration, automation and response platform. It runs playbooks across
+  hundreds of connected security tools, and exposes a REST API for containers, artifacts, playbooks, actions and
+  case management, plus a documented app/connector SDK. Splunk publishes a VS Code extension and a pytest harness
+  for connector development, but no anonymously fetchable OpenAPI document.
+url: https://raw.githubusercontent.com/api-evangelist/splunk-soar/refs/heads/main/apis.yml
+type: Index
+access: 3rd-Party
+position: Consumer
+x-type: company
+x-source: cisco-family-buildout:2026-08-19
+x-parent: splunk
+x-relationship: acquisition
+x-contract-status: none
+x-contract-note: No anonymously fetchable machine-readable contract was found on 2026-08-19 (probed; real 404s).
+  API Evangelist has not authored a substitute.
+specificationVersion: '0.23'
+created: '2026-08-19'
+modified: '2026-08-19'
+tags:
+- Security
+- SOAR
+- Automation
+- Orchestration
+- Incident Response
+- SOC
+apis: []
+common:
+- type: Portal
+  url: https://www.splunk.com/en_us/products/splunk-security-orchestration-and-automation.html
+- type: Documentation
+  url: https://www.splunk.com/en_us/products/splunk-security-orchestration-and-automation.html
+- type: APIReference
+  url: https://www.splunk.com/en_us/products/splunk-security-orchestration-and-automation.html
+- type: ParentCompany
+  url: https://apis.io/providers/splunk/
+  name: Splunk
+  x-acquired: 2018
+- type: SDKs
+  url: https://github.com/splunk/vscode-extension-splunk-soar
+- type: GitHubOrganization
+  url: https://github.com/CiscoDevNet
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
+- FN: APIs.json
+  email: info@apis.io
+x-acquired: 2018
