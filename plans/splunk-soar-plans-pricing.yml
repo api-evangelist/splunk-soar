@@ -1,0 +1,29 @@
+generated: '2026-08-19'
+method: searched
+source: https://www.splunk.com/en_us/products/pricing.html
+plan_count: 0
+note: >-
+  Splunk publishes no priced plan for Splunk SOAR. The Splunk pricing page lists SOAR as a standalone
+  product option ("Use Splunk SOAR as a standalone product...") but attaches no price, no tier names,
+  no included quota and no overage — the only calls to action are "Get a quote" and a free trial.
+  This is a deliberate contrast on the same page, which DOES publish entry prices for other Splunk
+  products (Splunk Observability Cloud from $15 per host/month, Splunk On-Call from $5 per user per
+  month). SOAR is sales-gated; a buyer cannot self-serve a price and neither can an agent.
+plans: []
+trial:
+  available: true
+  url: https://www.splunk.com/en_us/download/soar-free-trial.html
+  status: 200
+  note: Free trial, form-gated. No published duration or included quota on the pricing page.
+quote:
+  url: https://www.splunk.com/en_us/products/pricing.html
+  mechanism: contact-sales
+x-evidence:
+  checked: '2026-08-19'
+  urls:
+  - url: https://www.splunk.com/en_us/products/pricing.html
+    status: 200
+  - url: https://www.splunk.com/en_us/download/soar-free-trial.html
+    status: 200
+  - url: https://www.splunk.com/en_us/products/splunk-security-orchestration-and-automation/pricing.html
+    status: 404

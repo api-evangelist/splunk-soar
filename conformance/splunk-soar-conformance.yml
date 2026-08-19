@@ -1,0 +1,94 @@
+generated: '2026-08-19'
+method: searched
+source: https://help.splunk.com/en/splunk-soar/soar-cloud/soar-cloud-service-description/the-splunk-soar-service/splunk-soar-cloud-introduction
+docs: https://www.splunk.com/en_us/about-splunk/splunk-data-security-and-privacy/compliance-at-splunk.html
+note: >-
+  Two different things are recorded here. `certifications` are the audited compliance programs Splunk
+  publishes for the Splunk SOAR (Cloud) SERVICE — these are searched from Splunk's own service
+  description and compliance pages, and they are what the Compliance pointer in apis.yml refers to.
+  `standards` are technical/interface standards the SOAR REST API itself conforms to; because Splunk
+  publishes no OpenAPI for SOAR, these were assessed against the published REST API reference rather
+  than against a spec, and most of them are honest negatives.
+certifications:
+- id: soc2-type2
+  name: SOC 2 Type II
+  holds: true
+  scope: Splunk SOAR (Cloud)
+  evidence: Annual SOC 2 Type 2 audit report issued for Splunk SOAR (Cloud).
+- id: iso-27001
+  name: ISO/IEC 27001:2022
+  holds: true
+  scope: Splunk SOAR (Cloud)
+  evidence: Splunk SOAR (Cloud) is ISO/IEC 27001:2022-certified.
+- id: iso-27017
+  name: ISO/IEC 27017:2015
+  holds: true
+  scope: Splunk SOAR (Cloud)
+  evidence: Cloud-services security controls extension.
+- id: iso-27018
+  name: ISO/IEC 27018:2019
+  holds: true
+  scope: Splunk SOAR (Cloud)
+  evidence: PII protection in public cloud extension.
+- id: hipaa
+  name: HIPAA Security Rule
+  holds: true
+  scope: Splunk SOAR (Cloud)
+  evidence: Compliant with the HIPAA Security Rule and requirements.
+- id: pci-dss
+  name: PCI DSS v4.0
+  holds: true
+  scope: Splunk SOAR (Cloud)
+  evidence: Compliant with the PCI DSS v4.0 standard.
+- id: fedramp-moderate
+  name: FedRAMP Moderate
+  holds: true
+  scope: Splunk SOAR (Cloud) in AWS GovCloud
+  evidence: Authorized at the Moderate Impact Level in AWS GovCloud.
+- id: irap
+  name: IRAP PROTECTED
+  holds: true
+  scope: Splunk SOAR (Cloud), Australia
+  evidence: Assessed at the PROTECTED level for Australian operations.
+standards:
+- id: rest
+  conforms: true
+  evidence: Resource-oriented HTTPS endpoints under /rest/<resource>/<id> with JSON payloads.
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: PGP-signed security.txt served at https://www.splunk.com/.well-known/security.txt
+- id: oauth2
+  conforms: false
+  evidence: No OAuth 2.0 surface documented for the SOAR REST API; auth is HTTP Basic or a ph-auth-token header.
+- id: oidc
+  conforms: false
+  evidence: No /.well-known/openid-configuration on any probed Splunk host (404).
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: 'Failures use a proprietary {"failed": true, "message": "..."} body, not application/problem+json.'
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Deprecation/Sunset headers documented; deprecations are announced only in release notes.
+- id: rfc8615-well-known-uri
+  conforms: partial
+  evidence: security.txt is served; no api-catalog, no agent-card, no ai-plugin.
+- id: openapi
+  conforms: false
+  evidence: >-
+    No anonymously fetchable OpenAPI or Swagger document for Splunk SOAR was found on 2026-08-19 —
+    probed splunk.com, www.splunk.com, docs.splunk.com, help.splunk.com, dev.splunk.com and
+    api.splunk.com, plus the phantomcyber and splunk-soar-connectors GitHub orgs.
+- id: asyncapi
+  conforms: false
+  evidence: No event/streaming contract published for SOAR.
+- id: mcp
+  conforms: false
+  evidence: >-
+    The official Splunk MCP Server (Splunkbase app 7931) targets the Splunk platform
+    (Enterprise/Cloud Platform), not Splunk SOAR. See mcp/splunk-soar-mcp.yml.
+- id: pagination
+  conforms: true
+  evidence: page / page_size with a {count, num_pages, data} envelope.
+- id: idempotency
+  conforms: false
+  evidence: No idempotency key or replay guarantee documented.

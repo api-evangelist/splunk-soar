@@ -1,0 +1,50 @@
+generated: '2026-08-19'
+method: searched
+source: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/using-the-splunk-soar-rest-api/delete-records
+docs: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference
+format: proprietary
+rfc9457: false
+note: >-
+  Splunk SOAR does not use RFC 9457 problem+json and does not publish a numbered error-code registry.
+  Failures are signalled by a JSON body carrying "failed": true plus a human-readable "message"
+  string, returned with a non-200 status code. There is no OpenAPI document, so nothing here is
+  derived from 4xx/5xx response objects — every entry below is quoted from the published REST API
+  reference.
+envelope:
+  failure: '{"failed": true, "message": "<error description>"}'
+  success: '{"success": true}'
+  success_with_id: '{"id": <int>, "success": true, "message": "<description>"}'
+  batch: '[{"id": <int>, "success": true}, ...]'
+  discriminator_field: failed
+  message_field: message
+  machine_readable_code: none
+problems:
+- id: generic-failure
+  status: non-200
+  title: Request failed
+  envelope: '{"failed": true, "message": "<error description>"}'
+  remediation: >-
+    Read the message string. SOAR does not return a stable machine-readable error code, so clients
+    must branch on the presence of the "failed" key and, where they need finer handling, on
+    substrings of "message" — which is not a stable contract.
+  source: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/using-the-splunk-soar-rest-api/delete-records
+- id: duplicate-container
+  status: non-200
+  title: Duplicate container
+  envelope: '{"existing_container_id": <int>, "failed": true, "message": "duplicate with..."}'
+  remediation: >-
+    A container with the same source_data_identifier already exists. Use the returned
+    existing_container_id rather than retrying the create.
+  source: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/container-endpoints/rest-containers
+- id: delete-requires-user-auth
+  status: non-200
+  title: Delete rejected for token authentication
+  envelope: '{"failed": true, "message": "<error description>"}'
+  remediation: >-
+    DELETE requires user-account (HTTP Basic) authentication. The ph-auth-token automation token is
+    not accepted for deletes — re-issue the call with user credentials.
+  source: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/using-the-splunk-soar-rest-api/delete-records
+gaps:
+- No numbered or symbolic error codes are published.
+- No HTTP status-code table is published alongside the endpoint reference.
+- No retryable-vs-terminal classification is published.

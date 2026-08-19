@@ -1,0 +1,44 @@
+generated: '2026-08-19'
+method: searched
+status: none
+source: https://www.splunk.com/en_us/products/model-context-protocol.html
+deployment:
+  mode: none
+  auth: unknown
+  verified: searched
+note: >-
+  Splunk ships NO MCP server for Splunk SOAR. This is a deliberate negative finding, recorded because
+  the adjacent evidence is easy to misread in three separate ways:
+
+  1. Splunk DOES publish an official MCP server — "Splunk MCP Server" (Splunkbase app 7931, built by
+     Splunk LLC, v1.3.1 as of 2026-08-03). It targets the SPLUNK PLATFORM (Splunk Enterprise and
+     Splunk Cloud Platform), exposing SPL search, index metadata and knowledge-object discovery. It
+     is not a SOAR server and does not expose containers, artifacts, playbooks or actions. That
+     server belongs on the `splunk` provider profile, not this one.
+  2. A third-party SOAR MCP connector exists (github.com/shanto12/splunk-soar-mcp-connector). It is
+     not published by Splunk or Cisco and is therefore not credited to this provider.
+  3. Splunk SOAR 8.6.0 shipped an "Automation Builder agent". That is an in-product agentic feature,
+     not an MCP server, and it exposes no MCP endpoint.
+
+  No candidate tool list was derived either: deriving one requires an OpenAPI document to bind tools
+  to operations, and Splunk publishes none for SOAR (see apis.yml x-contract-status). Guessing tool
+  names from documentation prose would produce an artifact that reads as an agent surface where none
+  exists.
+tools: []
+related_but_not_soar:
+- name: Splunk MCP Server
+  product: Splunk Enterprise / Splunk Cloud Platform
+  vendor: Splunk LLC
+  url: https://splunkbase.splunk.com/app/7931
+  docs: https://help.splunk.com/en/splunk-cloud-platform/mcp-server-for-splunk-platform
+  deployment_mode: local-app
+  note: >-
+    Installed as a Splunkbase app onto a Splunk deployment; not a hosted remote endpoint and not a
+    SOAR surface.
+third_party:
+- name: splunk-soar-mcp-connector
+  url: https://github.com/shanto12/splunk-soar-mcp-connector
+  vendor: community (shanto12)
+  official: false
+x-evidence:
+  checked: '2026-08-19'

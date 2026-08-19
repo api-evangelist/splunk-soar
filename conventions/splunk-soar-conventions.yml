@@ -1,0 +1,91 @@
+generated: '2026-08-19'
+method: searched
+source: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/using-the-splunk-soar-rest-api/query-for-data
+docs: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/using-the-splunk-soar-rest-api
+note: >-
+  Cross-cutting runtime semantics read from the Splunk SOAR REST API reference. There is no OpenAPI
+  document to derive from; every entry below is quoted or paraphrased from the published docs.
+base_url:
+  template: https://{soar-host}/rest
+  note: >-
+    Per-tenant. Splunk SOAR (Cloud) gives each customer their own host, and SOAR (On-premises) runs
+    on customer infrastructure. There is no shared api.splunk.com host for SOAR.
+  example: https://192.168.1.1/rest/container/1
+auth:
+  style: basic-or-token
+  header: ph-auth-token
+  see: authentication/splunk-soar-authentication.yml
+idempotency:
+  supported: false
+  note: >-
+    No idempotency key, no request-replay guarantee and no de-duplication header is documented for
+    the SOAR REST API. The one adjacent behaviour is container de-duplication: creating a container
+    whose source_data_identifier already exists returns
+    {"failed": true, "message": "duplicate with...", "existing_container_id": <int>} — a collision
+    report, not idempotent replay.
+pagination:
+  style: page-number
+  params:
+  - name: page
+    description: Zero-indexed page number (positive integer starting at 0)
+  - name: page_size
+    description: Records per page. 0 returns all results — the docs warn about the performance cost.
+  response_fields:
+  - count
+  - num_pages
+  - data
+  envelope: '{"count": <int>, "num_pages": <int>, "data": [ ... ]}'
+  single_object_note: A request for a single object returns the object directly, with no envelope.
+sorting:
+  params:
+  - name: sort
+    description: >-
+      Any top-level simple field (string, boolean, integer), or a custom field as
+      custom_fields.field_name
+  - name: order
+    description: asc or desc
+filtering:
+  style: django-queryset
+  syntax: _filter_<field_name>=<value>
+  rules:
+  - String values must be quoted ("value"); numeric values are unquoted.
+  - Array values use Python list syntax, e.g. ["item1", 2, None].
+  - Django queryset lookups are supported, including __contains and __icontains.
+  - Related fields can be traversed, e.g. _filter_container__name__icontains="term".
+  - Multiple filters combine with AND only. There is no OR.
+field_expansion:
+  params:
+  - name: pretty
+    description: Adds related or calculated fields prefixed with _pretty_. Carries a performance cost.
+  - name: include_expensive
+    description: Returns all fields including large/expensive ones. Carries a performance cost.
+  - name: _annotation_authorized_users
+    description: Container-specific annotation that returns the authorized users for the container.
+error_envelope:
+  success: '{"success": true}' 
+  success_with_id: '{"id": <int>, "success": true, "message": "<description>"}'
+  failure: '{"failed": true, "message": "<error description>"}'
+  format: proprietary
+  rfc9457: false
+  see: errors/splunk-soar-problem-types.yml
+versioning:
+  scheme: product-release
+  note: >-
+    The REST path is unversioned (/rest/<resource>); the contract moves with the SOAR product
+    release. Docs are published per SOAR version.
+  see: lifecycle/splunk-soar-lifecycle.yml
+rate_limiting:
+  documented: false
+  see: rate-limits/splunk-soar-rate-limits.yml
+request_id_tracing:
+  documented: false
+bulk:
+  supported: true
+  note: >-
+    Containers and artifacts can be created in a single POST; batch operations return an array of
+    per-record results [{"id": <int>, "success": true}, ...].
+    See https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/using-the-splunk-soar-rest-api/bulk-create-and-update-records
+  performance_note: >-
+    The docs recommend creating the container first, then every artifact except the last with
+    run_automation=False, and the last with run_automation=True — or creating the container and its
+    artifacts in one POST and not setting run_automation at all.

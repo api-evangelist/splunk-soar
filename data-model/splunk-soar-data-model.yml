@@ -1,0 +1,129 @@
+generated: '2026-08-19'
+method: searched
+source: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference
+docs: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference
+note: >-
+  Splunk publishes no OpenAPI for SOAR, so this entity graph is read from the published REST API
+  reference and the Playbook API concept pages rather than derived from $ref links in a spec.
+  Relationships recorded here are ones the docs state directly; no cardinality has been inferred
+  where the docs are silent.
+entities:
+- name: container
+  path: /rest/container
+  description: >-
+    The top-level data structure the playbook APIs operate on — an incident, event or case. A
+    structured JSON object that can nest further JSON objects representing its artifacts.
+  source: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/container-endpoints/rest-containers
+- name: artifact
+  path: /rest/artifact
+  description: >-
+    Evidence or corroboration associated with a container. JSON objects stored inside a container.
+  source: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/artifact-endpoints
+- name: playbook
+  path: /rest/playbook
+  description: Automation logic executed against containers.
+- name: action_run
+  path: /rest/action_run
+  description: An invocation of an app action, launched via the run-action endpoints.
+- name: app
+  path: /rest/app
+  description: A connector/integration package installed on the SOAR instance.
+- name: asset
+  path: /rest/asset
+  description: A configured instance of an app — credentials and settings for one connected system.
+- name: cef
+  path: /rest/cef
+  description: Common Event Format field definitions used to type artifact data.
+- name: indicator
+  path: /rest/indicator
+  description: A value (IP, hash, domain) extracted from artifacts and tracked across containers.
+- name: evidence
+  path: /rest/evidence
+  description: Items promoted as evidence on a container.
+- name: note
+  path: /rest/note
+  description: Analyst notes attached to containers or other objects.
+- name: vault
+  path: /rest/vault
+  description: File storage attached to containers.
+- name: workbook
+  path: /rest/workbook
+  description: A task template applied to a container to structure analyst work.
+- name: custom_list
+  path: /rest/decided_list
+  description: Named custom lists used by playbooks.
+- name: custom_function
+  path: /rest/custom_function
+  description: Reusable playbook logic blocks.
+- name: role
+  path: /rest/role
+  description: RBAC role definitions.
+- name: ph_user
+  path: /rest/ph_user
+  description: SOAR users, including automation (service) users that hold ph-auth-token credentials.
+- name: severity
+  path: /rest/severity
+  description: Severity vocabulary applied to containers.
+- name: aggregation_rule
+  path: /rest/aggregation_rule
+  description: Rules that group incoming events into containers.
+relationships:
+- from: container
+  to: artifact
+  type: has_many
+  via: container (artifact.container_id)
+  evidence: Artifacts are objects associated with a container and stored in it.
+- from: artifact
+  to: container
+  type: belongs_to
+  via: container_id
+- from: container
+  to: comment
+  type: has_many
+  via: /rest/container_comment
+- from: container
+  to: attachment
+  type: has_many
+  via: /rest/container_attachment
+- from: container
+  to: vault
+  type: has_many
+  via: container_attachment produces a vault_id
+- from: container
+  to: approval
+  type: has_many
+  via: /rest/container/<container_id>/approvals
+- from: container
+  to: ph_user
+  type: has_many
+  via: /rest/container/<container_id>/permitted_users
+- from: asset
+  to: app
+  type: belongs_to
+  via: app
+  evidence: An asset is a configured instance of an installed app.
+- from: action_run
+  to: container
+  type: belongs_to
+  via: container_id
+- from: action_run
+  to: asset
+  type: belongs_to
+  via: asset
+- from: playbook
+  to: container
+  type: has_many
+  via: playbook runs are launched against containers
+- from: artifact
+  to: cef
+  type: has_many
+  via: CEF field names typing artifact data
+- from: ph_user
+  to: role
+  type: has_many
+  via: role membership
+deduplication:
+  field: source_data_identifier
+  behavior: >-
+    Creating a container whose source_data_identifier already exists returns
+    {"existing_container_id": <int>, "failed": true, "message": "duplicate with..."}.

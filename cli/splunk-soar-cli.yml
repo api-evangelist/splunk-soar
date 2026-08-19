@@ -1,0 +1,35 @@
+generated: '2026-08-19'
+method: searched
+source: https://phantomcyber.github.io/splunk-soar-sdk/index.html
+docs: https://phantomcyber.github.io/splunk-soar-sdk/index.html
+name: soarapps
+official: true
+note: >-
+  `soarapps` is the CLI shipped with the official Splunk SOAR SDK. It is an APP/CONNECTOR
+  development CLI — it scaffolds, converts, packages, installs and tests SOAR apps. It is NOT a
+  general-purpose client for the SOAR REST API; there is no first-party CLI that wraps the REST
+  endpoints. The binary is distributed through the Python package, recorded in
+  packages/splunk-soar-packages.yml.
+install:
+- method: pip
+  command: pip install splunk-soar-sdk
+  package: https://pypi.org/project/splunk-soar-sdk/
+repository: https://github.com/phantomcyber/splunk-soar-sdk
+version: 4.0.0
+published: '2026-08-15'
+commands:
+- name: version
+  description: Display SDK version information.
+- name: manifests
+  description: Manage app manifests.
+  subcommands: [display, create, create-notice]
+- name: package
+  description: Build and install apps.
+  subcommands: [build, install]
+- name: init
+  description: Initialize a new app.
+- name: convert
+  description: Convert a legacy-style app to the new SDK format.
+- name: test
+  description: Run app tests.
+  subcommands: [unit, integration]

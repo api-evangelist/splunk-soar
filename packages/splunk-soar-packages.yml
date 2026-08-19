@@ -1,0 +1,66 @@
+generated: '2026-08-19'
+method: searched
+source: https://pypi.org/pypi/splunk-soar-sdk/json
+note: >-
+  Splunk SOAR ships no REST API client library. What it ships is an APP/CONNECTOR development
+  toolchain: the official Splunk SOAR SDK (PyPI, maintained in the phantomcyber GitHub org) and a
+  first-party VS Code extension. Registries probed with no first-party SOAR result: npm, RubyGems,
+  crates.io, NuGet, Maven Central, pkg.go.dev, Packagist.
+packages:
+- language: python
+  registry: pypi
+  name: splunk-soar-sdk
+  url: https://pypi.org/project/splunk-soar-sdk/
+  install: pip install splunk-soar-sdk
+  repository: https://github.com/phantomcyber/splunk-soar-sdk
+  documentation: https://phantomcyber.github.io/splunk-soar-sdk/index.html
+  official: true
+  version: 4.0.0
+  published: '2026-08-15'
+  summary: The official framework for developing and testing Splunk SOAR Apps
+  note: >-
+    App/connector development framework, not a REST API client. Ships the `soarapps` CLI
+    (see cli/splunk-soar-cli.yml). Actively maintained — released four days before this probe.
+- language: typescript
+  registry: vscode-marketplace
+  name: Splunk.vscode-splunk-soar
+  url: https://marketplace.visualstudio.com/items?itemName=Splunk.vscode-splunk-soar
+  install: code --install-extension Splunk.vscode-splunk-soar
+  repository: https://github.com/splunk/vscode-extension-splunk-soar
+  official: true
+  version: 0.0.33
+  published: '2026-07-20'
+  summary: Splunk SOAR VS Code extension — browse a SOAR instance, run actions and playbooks, develop apps
+  note: >-
+    Version and publish date read from the Visual Studio Marketplace extensionquery API
+    (marketplace.visualstudio.com/_apis/public/gallery/extensionquery), not from a package registry.
+- language: python
+  registry: pypi
+  name: phantom-dev
+  url: https://pypi.org/project/phantom-dev/
+  official: false
+  version: 0.14.5
+  published: '2021-11-20'
+  note: >-
+    Third-party Phantom app-development helper hosted on GitLab (gitlab.com/phantom6/phantom-dev),
+    not published by Splunk. Last release 2021 — superseded by the official splunk-soar-sdk.
+    Recorded for completeness; not counted as a first-party SDK.
+registries_probed:
+- registry: pypi
+  result: hit
+- registry: npm
+  result: none
+  note: npm search for "splunk soar" returned only Splunk Enterprise/Observability packages
+- registry: rubygems
+  result: none
+- registry: crates.io
+  result: none
+- registry: nuget
+  result: none
+- registry: maven-central
+  result: none
+- registry: pkg.go.dev
+  result: none
+- registry: packagist
+  result: none
+official_count: 2

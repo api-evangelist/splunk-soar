@@ -1,0 +1,57 @@
+generated: '2026-08-19'
+method: searched
+source: https://help.splunk.com/en/splunk-soar/soar-cloud/release-notes/splunk-soar-cloud-release-notes/welcome-to-splunk-soar-cloud
+versioning:
+  scheme: product-release
+  current: 8.6.0
+  current_released: '2026-08-04'
+  docs: https://help.splunk.com/en/splunk-soar/soar-cloud/release-notes
+  note: >-
+    The REST path itself is unversioned (/rest/<resource>) — the API contract moves with the SOAR
+    product release, and the REST API reference is republished per SOAR version. SOAR (Cloud) and
+    SOAR (On-premises) carry separate documentation sets. From 8.4.0 the SOAR version line was
+    aligned with Splunk Enterprise Security.
+deprecation:
+  policy_url: https://help.splunk.com/en/splunk-soar/soar-cloud/release-notes
+  formal_policy_published: false
+  sunset_header: false
+  note: >-
+    Splunk publishes no standalone deprecation or sunset policy document for the SOAR REST API, and
+    the API does not emit RFC 8594 Deprecation/Sunset headers. Deprecations are announced in the
+    per-release notes instead, which is where the items below come from.
+  announced:
+  - item: Python 3.9 support
+    status: final-release
+    version: 8.6.0
+    note: 8.6.0 is the final version supporting Python 3.9; later releases require Python 3.13+.
+  - item: Classic Playbook Editor
+    status: removed
+    version: 6.4.0
+    note: Removed from the product; existing playbooks continue to run.
+  - item: Default admin account name
+    status: changed
+    version: 6.0.0
+    note: Default user renamed from "admin" to "soar_local_admin".
+sla:
+  url: https://www.splunk.com/en_us/legal/splunk-cloud-service-level-schedule.html
+  uptime_target: '100%'
+  remedy: service credits
+  applies_to: Splunk SOAR (Cloud)
+  note: >-
+    The Splunk Cloud Service Level Schedule defines availability as being able to log into the Splunk
+    SOAR (Cloud) account and use the software. On-premises SOAR carries no SLA — it runs on customer
+    infrastructure.
+status_page: https://status.splunk.com
+status_pages:
+- url: https://status.splunk.com
+  status: 200
+- url: https://status.splunkcloud.com
+  status: 200
+regions:
+  source: https://help.splunk.com/en/splunk-soar/soar-cloud/soar-cloud-service-description/the-splunk-soar-service/splunk-soar-cloud-introduction
+  aws: [us-oregon, us-virginia, uk-london, eu-dublin, eu-frankfurt, eu-milan, eu-paris, ap-mumbai, ap-seoul, ap-singapore, ap-sydney, ap-tokyo, ca-central, ca-west]
+  gcp: [us-iowa, uk-london, me-dammam, eu-belgium, eu-frankfurt, ap-singapore, ap-sydney, ca-montreal]
+  azure: [us-phoenix, us-virginia, uk-london, ap-tokyo]
+deprecated_operations: []
+x-evidence:
+  checked: '2026-08-19'

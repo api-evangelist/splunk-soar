@@ -1,0 +1,66 @@
+generated: '2026-08-19'
+method: searched
+source: https://www.splunk.com/.well-known/security.txt
+note: >-
+  Splunk SOAR has no dedicated public API host — the REST API is served from each customer's own
+  SOAR tenant (https://{soar-host}/rest/), so there is no shared host to probe. The corporate host
+  www.splunk.com was probed instead, and it serves a real PGP-signed RFC 9116 security.txt.
+  docs.splunk.com returns 403 to automated clients; dev.splunk.com is a Next.js single-page app that
+  answers HTTP 200 with an HTML shell for EVERY /.well-known/* path, so none of its 200s are documents
+  and none are recorded as hits.
+hosts:
+- host: https://www.splunk.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: splunk-soar-security.txt
+    content_type: text/plain
+    note: RFC 9116, PGP-signed, Expires 2027-03-01
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://docs.splunk.com
+  note: All paths return 403 to automated clients (bot challenge). No document readable.
+  documents:
+  - path: /.well-known/security.txt
+    status: 403
+  - path: /llms.txt
+    status: 403
+- host: https://help.splunk.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+- host: https://dev.splunk.com
+  note: >-
+    SPA catch-all. Every path returned HTTP 200 with the same Next.js HTML shell
+    (<title>Splunk Developer Program</title>). Recorded as misses, not hits.
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    body: html-shell
+  - path: /.well-known/agent-card.json
+    status: 200
+    body: html-shell
+  - path: /llms.txt
+    status: 200
+    body: html-shell
+  - path: /openapi.json
+    status: 200
+    body: html-shell
+x-evidence:
+  checked: '2026-08-19'

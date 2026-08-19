@@ -1,0 +1,49 @@
+generated: '2026-08-19'
+method: searched
+source: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/using-the-splunk-soar-rest-api/using-the-rest-api-reference-for-splunk-soar-cloud
+docs: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/using-the-splunk-soar-rest-api/using-the-rest-api-reference-for-splunk-soar-cloud
+note: >-
+  Derived from the published Splunk SOAR REST API reference, not from an OpenAPI document — Splunk
+  publishes no anonymously fetchable machine-readable contract for SOAR (see apis.yml
+  x-contract-status). No OAuth 2.0 or OpenID Connect surface is documented for the SOAR REST API.
+summary:
+  types:
+  - http
+  - apiKey
+  api_key_in:
+  - header
+  - url-userinfo
+  oauth2_flows: []
+  transport: https-required
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: >-
+    HTTP Basic authentication with a SOAR username and password. Required (token auth is not
+    accepted) for DELETE operations.
+  example: curl -u "username:password" https://{soar-host}/rest/container/1
+  source: docs
+- name: phAuthToken
+  type: apiKey
+  in: header
+  name_param: ph-auth-token
+  description: >-
+    Automation-user authorization token. Created per automation (service) user in the SOAR admin
+    interface; the interface returns a JSON blob containing the ph-auth-token value and the server
+    URL. Can also be supplied as the password half of the URL userinfo:
+    https://:<token>@{soar-host}/rest/container/1
+  source: docs
+  constraints:
+  - Cannot be used for DELETE requests — those require user-account (basic) authentication.
+transport:
+  https_required: true
+  statement: >-
+    "REST API requests must be performed over HTTPS, and only authorized users and devices are allowed."
+authorization:
+  model: role-based
+  note: >-
+    SOAR enforces role-based access control on top of authentication; roles and permissions are
+    managed through the role-management endpoints
+    (https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/role-management-endpoints).
+  scopes: none-documented

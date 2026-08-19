@@ -1,0 +1,29 @@
+generated: '2026-08-19'
+method: searched
+source: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference
+limit_count: 0
+note: >-
+  Splunk publishes no rate limits, quotas, throttling thresholds or rate-limit response headers for
+  the Splunk SOAR REST API. The REST API reference, the "Using the Splunk SOAR REST API" section and
+  the Splunk SOAR (Cloud) service description were all read on 2026-08-19 and none of them states a
+  request ceiling, a window, a burst allowance, an X-RateLimit-*/RateLimit-* header, a Retry-After
+  header or a 429 behaviour. This is consistent with the deployment model — SOAR runs on a
+  single-tenant host (customer-hosted on-premises, or a dedicated SOAR Cloud tenant), so throughput
+  is bounded by the tenant's own capacity rather than by a shared multi-tenant quota. The docs
+  instead give performance ADVICE, captured below, which is not the same thing as a published limit.
+  An agent cannot read a runtime backpressure signal from this API.
+limits: []
+response_headers: []
+exhaustion_status: undocumented
+performance_guidance:
+- guidance: >-
+    When creating many artifacts, create the container first, then all artifacts except the last with
+    run_automation=False, and the last with run_automation=True — or create the container and its
+    artifacts in a single POST and do not set run_automation at all.
+  source: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/container-endpoints/rest-containers
+- guidance: >-
+    page_size=0 returns every record in one response; the docs warn against it on large data sets.
+  source: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/using-the-splunk-soar-rest-api/query-for-data
+- guidance: >-
+    The pretty and include_expensive query parameters materially increase response cost.
+  source: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/using-the-splunk-soar-rest-api/query-for-data

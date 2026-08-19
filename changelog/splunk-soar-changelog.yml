@@ -1,0 +1,57 @@
+generated: '2026-08-19'
+method: searched
+source: https://help.splunk.com/en/splunk-soar/soar-cloud/release-notes/splunk-soar-cloud-release-notes/welcome-to-splunk-soar-cloud
+docs: https://help.splunk.com/en/splunk-soar/soar-cloud/release-notes
+scheme: product-release-notes
+note: >-
+  Splunk publishes dated release notes per SOAR version rather than a rolling API changelog. There is
+  no separate "API changelog" — REST API changes ride the product release. Recent window only; the
+  full history lives at the docs URL above.
+current:
+  version: 8.6.0
+  date: '2026-08-04'
+  channel: general-availability
+  note: Controlled availability 2026-07-21, general availability 2026-08-04.
+entries:
+- version: 8.6.0
+  date: '2026-08-04'
+  breaking: true
+  highlights:
+  - Automation Builder agent
+  - System Insights UI improvements
+  - Deferred major app updates
+  - FIPS 140-3 support
+  breaking_changes:
+  - Final release supporting Python 3.9; later releases require Python 3.13+.
+- version: 8.5.0
+  date: '2026-04-08'
+  breaking: false
+  highlights:
+  - System insights enhancements
+  - Automation Integrations in Splunk Enterprise Security
+  - Python 3.9 support extended
+- version: 8.4.0
+  date: '2026-02-04'
+  breaking: false
+  highlights:
+  - Action builder (beta)
+  - Google Cloud Platform support announced
+  - Version line aligned with Splunk Enterprise Security
+- version: 7.2.0
+  date: '2026-01-16'
+  breaking: false
+  highlights:
+  - Google Cloud Platform support
+- version: 7.1.0
+  date: '2025-11-06'
+  breaking: false
+  highlights:
+  - Python 3.13 support
+  - Automated Visual Playbook Editor updates
+- version: 7.0.0
+  date: '2025-09-02'
+  breaking: true
+  highlights:
+  - Python 3.13 migration
+  - Improved SOAR SDK
+  - IPv6 support
