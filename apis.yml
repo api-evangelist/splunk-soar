@@ -2,9 +2,13 @@ aid: splunk-soar
 name: Splunk SOAR
 description: Splunk SOAR, built on the Phantom platform Splunk acquired in 2018 and now part of Cisco through the
   2024 Splunk acquisition, is a security orchestration, automation and response platform. It runs playbooks across
-  hundreds of connected security tools, and exposes a REST API for containers, artifacts, playbooks, actions and
-  case management, plus a documented app/connector SDK. Splunk publishes a VS Code extension and a pytest harness
-  for connector development, but no anonymously fetchable OpenAPI document.
+  hundreds of connected security tools, and exposes a REST API for containers, artifacts, playbooks, actions,
+  assets, indicators, evidence, vault files, workbooks and case management, served from each customer's own tenant
+  at https://{soar-host}/rest/ rather than a shared API host. Authentication is HTTP Basic or a ph-auth-token
+  automation token. Splunk publishes a documented app/connector SDK on PyPI with the soarapps CLI, a first-party VS
+  Code extension, and 529 open connector repositories, but no anonymously fetchable OpenAPI document, no MCP server
+  for SOAR, and no published rate limits or pricing.
+image: https://www.splunk.com/content/dam/splunk2/images/icons/favicons/favicon.ico
 url: https://raw.githubusercontent.com/api-evangelist/splunk-soar/refs/heads/main/apis.yml
 type: Index
 access: 3rd-Party
@@ -14,8 +18,10 @@ x-source: cisco-family-buildout:2026-08-19
 x-parent: splunk
 x-relationship: acquisition
 x-contract-status: none
-x-contract-note: No anonymously fetchable machine-readable contract was found on 2026-08-19 (probed; real 404s).
-  API Evangelist has not authored a substitute.
+x-contract-note: No anonymously fetchable machine-readable contract was found on 2026-08-19 (probed splunk.com,
+  www.splunk.com, docs.splunk.com, help.splunk.com, dev.splunk.com, api.splunk.com plus the phantomcyber and
+  splunk-soar-connectors GitHub orgs; real 404s, one 403 bot challenge on docs.splunk.com, and an SPA catch-all
+  returning HTML 200s on dev.splunk.com). API Evangelist has not authored a substitute.
 specificationVersion: '0.23'
 created: '2026-08-19'
 modified: '2026-08-19'
@@ -26,22 +32,123 @@ tags:
 - Orchestration
 - Incident Response
 - SOC
-apis: []
+- Security Operations
+- Playbooks
+- Case Management
+- Threat Intelligence
+apis:
+- aid: splunk-soar:splunk-soar-rest-api
+  name: Splunk SOAR REST API
+  description: The Splunk SOAR REST API creates, updates, queries and selectively removes the objects the platform
+    automates against — containers, artifacts, playbooks, action runs, apps, assets, CEF fields, indicators,
+    evidence, notes, vault files, workbooks, custom lists, custom functions, roles, users, severities, aggregation
+    rules, approvals, multi-tenancy and system settings. Requests must be made over HTTPS against the customer's own
+    SOAR tenant.
+  humanURL: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference
+  baseURL: https://{soar-host}/rest
+  tags:
+  - Security
+  - Automation
+  - Orchestration
+  - Incident Response
+  - REST
+  properties:
+  - type: Documentation
+    url: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference
+  - type: APIReference
+    url: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference
+  - type: GettingStarted
+    url: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/using-the-splunk-soar-rest-api/using-the-rest-api-reference-for-splunk-soar-cloud
+  - type: Authentication
+    url: authentication/splunk-soar-authentication.yml
+  - type: Conventions
+    url: conventions/splunk-soar-conventions.yml
+  - type: ErrorCatalog
+    url: errors/splunk-soar-problem-types.yml
+  - type: DataModel
+    url: data-model/splunk-soar-data-model.yml
+  - type: RateLimits
+    url: rate-limits/splunk-soar-rate-limits.yml
 common:
-- type: Portal
-  url: https://www.splunk.com/en_us/products/splunk-security-orchestration-and-automation.html
-- type: Documentation
-  url: https://www.splunk.com/en_us/products/splunk-security-orchestration-and-automation.html
-- type: APIReference
-  url: https://www.splunk.com/en_us/products/splunk-security-orchestration-and-automation.html
+- type: TrustCenter
+  url: security/splunk-soar-trust-center.yml
+- type: Security
+  url: https://advisory.splunk.com/report
+- type: VulnerabilityDisclosure
+  url: security/splunk-soar-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/splunk-soar-domain-security.yml
 - type: ParentCompany
   url: https://apis.io/providers/splunk/
   name: Splunk
+  x-relationship: acquisition
+  x-generated-by: cisco-family:2026-08-19
   x-acquired: 2018
-- type: SDKs
-  url: https://github.com/splunk/vscode-extension-splunk-soar
+- type: Portal
+  url: https://www.splunk.com/en_us/products/splunk-security-orchestration-and-automation.html
+- type: DeveloperPortal
+  url: https://help.splunk.com/en/splunk-soar/soar-cloud
+- type: Documentation
+  url: https://help.splunk.com/en/splunk-soar/soar-cloud
+- type: APIReference
+  url: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference
+- type: GettingStarted
+  url: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference/using-the-splunk-soar-rest-api/using-the-rest-api-reference-for-splunk-soar-cloud
+- type: Support
+  url: https://www.splunk.com/en_us/support-and-services.html
+- type: Blog
+  url: https://www.splunk.com/en_us/blog/security.html
 - type: GitHubOrganization
-  url: https://github.com/CiscoDevNet
+  url: https://github.com/phantomcyber
+- type: Pricing
+  url: https://www.splunk.com/en_us/products/pricing.html
+- type: SignUp
+  url: https://www.splunk.com/en_us/download/soar-free-trial.html
+- type: TermsOfService
+  url: https://www.splunk.com/en_us/legal/splunk-general-terms.html
+- type: PrivacyPolicy
+  url: https://www.splunk.com/en_us/legal/privacy.html
+- type: Packages
+  url: packages/splunk-soar-packages.yml
+- type: SDKs
+  url: packages/splunk-soar-packages.yml
+- type: CLI
+  url: cli/splunk-soar-cli.yml
+- type: Authentication
+  url: authentication/splunk-soar-authentication.yml
+- type: Conventions
+  url: conventions/splunk-soar-conventions.yml
+- type: ErrorCatalog
+  url: errors/splunk-soar-problem-types.yml
+- type: DataModel
+  url: data-model/splunk-soar-data-model.yml
+- type: RateLimits
+  url: rate-limits/splunk-soar-rate-limits.yml
+- type: Plans
+  url: plans/splunk-soar-plans-pricing.yml
+- type: Lifecycle
+  url: lifecycle/splunk-soar-lifecycle.yml
+- type: StatusPage
+  url: https://status.splunk.com
+- type: Deprecation
+  url: https://help.splunk.com/en/splunk-soar/soar-cloud/release-notes
+- type: ChangeLog
+  url: changelog/splunk-soar-changelog.yml
+- type: Conformance
+  url: conformance/splunk-soar-conformance.yml
+- type: Compliance
+  url: https://www.splunk.com/en_us/about-splunk/splunk-data-security-and-privacy/compliance-at-splunk.html
+- type: WellKnown
+  url: well-known/splunk-soar-well-known.yml
+- type: SecurityTxt
+  url: well-known/splunk-soar-security.txt
+- type: LLMsTxt
+  url: llms/splunk-soar-llms.txt
+x-enrichment:
+  date: '2026-08-19'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
