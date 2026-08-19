@@ -2,12 +2,12 @@ aid: splunk-soar
 name: Splunk SOAR
 description: Splunk SOAR, built on the Phantom platform Splunk acquired in 2018 and now part of Cisco through the
   2024 Splunk acquisition, is a security orchestration, automation and response platform. It runs playbooks across
-  hundreds of connected security tools, and exposes a REST API for containers, artifacts, playbooks, actions,
-  assets, indicators, evidence, vault files, workbooks and case management, served from each customer's own tenant
-  at https://{soar-host}/rest/ rather than a shared API host. Authentication is HTTP Basic or a ph-auth-token
-  automation token. Splunk publishes a documented app/connector SDK on PyPI with the soarapps CLI, a first-party VS
-  Code extension, and 529 open connector repositories, but no anonymously fetchable OpenAPI document, no MCP server
-  for SOAR, and no published rate limits or pricing.
+  hundreds of connected security tools, and exposes a REST API for containers, artifacts, playbooks, actions, assets,
+  indicators, evidence, vault files, workbooks and case management, served from each customer's own tenant at https://{soar-host}/rest/
+  rather than a shared API host. Authentication is HTTP Basic or a ph-auth-token automation token. Splunk publishes
+  a documented app/connector SDK on PyPI with the soarapps CLI, a first-party VS Code extension, and 529 open connector
+  repositories, but no anonymously fetchable OpenAPI document, no MCP server for SOAR, and no published rate limits
+  or pricing.
 image: https://www.splunk.com/content/dam/splunk2/images/icons/favicons/favicon.ico
 url: https://raw.githubusercontent.com/api-evangelist/splunk-soar/refs/heads/main/apis.yml
 type: Index
@@ -18,10 +18,8 @@ x-source: cisco-family-buildout:2026-08-19
 x-parent: splunk
 x-relationship: acquisition
 x-contract-status: none
-x-contract-note: No anonymously fetchable machine-readable contract was found on 2026-08-19 (probed splunk.com,
-  www.splunk.com, docs.splunk.com, help.splunk.com, dev.splunk.com, api.splunk.com plus the phantomcyber and
-  splunk-soar-connectors GitHub orgs; real 404s, one 403 bot challenge on docs.splunk.com, and an SPA catch-all
-  returning HTML 200s on dev.splunk.com). API Evangelist has not authored a substitute.
+x-contract-note: No anonymously fetchable machine-readable contract found (probed 2026-08-19). API Evangelist has
+  not authored a substitute.
 specificationVersion: '0.23'
 created: '2026-08-19'
 modified: '2026-08-19'
@@ -40,10 +38,10 @@ apis:
 - aid: splunk-soar:splunk-soar-rest-api
   name: Splunk SOAR REST API
   description: The Splunk SOAR REST API creates, updates, queries and selectively removes the objects the platform
-    automates against — containers, artifacts, playbooks, action runs, apps, assets, CEF fields, indicators,
-    evidence, notes, vault files, workbooks, custom lists, custom functions, roles, users, severities, aggregation
-    rules, approvals, multi-tenancy and system settings. Requests must be made over HTTPS against the customer's own
-    SOAR tenant.
+    automates against — containers, artifacts, playbooks, action runs, apps, assets, CEF fields, indicators, evidence,
+    notes, vault files, workbooks, custom lists, custom functions, roles, users, severities, aggregation rules,
+    approvals, multi-tenancy and system settings. Requests must be made over HTTPS against the customer's own SOAR
+    tenant.
   humanURL: https://help.splunk.com/en/splunk-soar/soar-cloud/rest-api-reference
   baseURL: https://{soar-host}/rest
   tags:
