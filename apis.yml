@@ -8,6 +8,17 @@ description: Splunk SOAR, built on the Phantom platform Splunk acquired in 2018 
   a documented app/connector SDK on PyPI with the soarapps CLI, a first-party VS Code extension, and 529 open connector
   repositories, but no anonymously fetchable OpenAPI document, no MCP server for SOAR, and no published rate limits
   or pricing.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.splunk.com/content/dam/splunk2/images/icons/favicons/favicon.ico
 url: https://raw.githubusercontent.com/api-evangelist/splunk-soar/refs/heads/main/apis.yml
 type: Index
