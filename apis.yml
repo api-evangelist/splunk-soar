@@ -93,6 +93,8 @@ apis:
   - type: RateLimits
     url: rate-limits/splunk-soar-rate-limits.yml
 common:
+- type: Website
+  url: https://www.splunk.com/
 - type: TrustCenter
   url: security/splunk-soar-trust-center.yml
 - type: Security
