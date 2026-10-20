@@ -32,18 +32,29 @@ edges:
 generated: '2026-10-18'
 method: searched
 source:
-- https://api.nuget.org/v3
-- https://crates.io/api/v1
-- https://proxy.golang.org
-- https://pypi.org/pypi
 - https://registry.npmjs.org
-- https://repo1.maven.org/maven2
+- https://pypi.org/pypi
 - https://rubygems.org/api/v1
+- https://crates.io/api/v1
+- https://repo1.maven.org/maven2
+- https://api.nuget.org/v3
+- https://proxy.golang.org
 checked:
 - https://api.nuget.org/v3
 - https://crates.io/api/v1
+- https://github.com/splunk-soar-connectors
 - https://proxy.golang.org
 - https://pypi.org/pypi
 - https://registry.npmjs.org
 - https://repo1.maven.org/maven2
 - https://rubygems.org/api/v1
+marketplace_apps:
+- marketplace: own
+  channel: partner-built
+  app: splunk-soar
+  url: https://github.com/splunk-soar-connectors
+  app_count: null
+  adapter: sweep-security.py:unreadable
+  listed: 0
+  status: not-machine-readable (HTTP 200; 531 per-app repos; SOAR apps are already read via Splunkbase into splunk
+    (reused, not duplicated))
